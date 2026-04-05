@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>יומן משימות משותף</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#edf4fb;
+  --surface:#ffffff;
+  --surface-2:#f7fbff;
+  --border:#d7e4f0;
+  --border-2:#bfd2e6;
+  --text:#112033;
+  --text-2:#48627d;
+  --text-3:#88a0b8;
+  --primary:#123c7a;
+  --primary-2:#0e2f60;
+  --primary-3:#1f57a8;
+  --primary-soft:#eaf2ff;
+  --green:#16a34a;
+  --green-soft:#eefbf3;
+  --red:#dc2626;
+  --red-soft:#fff2f2;
+  --orange:#ea580c;
+  --orange-soft:#fff6ee;
+  --purple:#6d5efc;
+  --purple-soft:#f2efff;
+  --pink:#d946ef;
+  --pink-soft:#fdf2ff;
+  --shadow:0 4px 12px rgba(17,32,51,.06),0 2px 4px rgba(17,32,51,.04);
+  --shadow-md:0 12px 28px rgba(18,60,122,.10),0 4px 12px rgba(18,60,122,.06);
+  --shadow-lg:0 22px 44px rgba(14,47,96,.18);
+  --radius:18px;
+  --radius-sm:12px;
+  --radius-lg:24px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Heebo',sans-serif;
+  background:linear-gradient(180deg,#edf4fb 0%,#f7faff 100%);
+  color:var(--text);
+  min-height:100vh;
+  font-size:16px;
+}
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-2) 100%);
+  color:#fff;
+  box-shadow:0 8px 20px rgba(10,30,60,.18);
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:18px 18px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.brand-icon{
+  width:56px;
+  height:56px;
+  border-radius:18px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.5rem;
+}
+
+.brand-text h1{
+  font-size:1.4rem;
+  font-weight:800;
+  line-height:1.2;
+}
+
+.brand-text p{
+  margin-top:4px;
+  color:#d8e7ff;
+  font-size:.92rem;
+}
+
+.header-side{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.header-pill{
+  padding:9px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.18);
+  font-size:.84rem;
+  font-weight:700;
+}
+
+.nav-tabs{
+  position:sticky;
+  top:90px;
+  z-index:90;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+
+.nav-tabs-inner{
+  max-width:1100px;
+  margin:0 auto;
+  display:flex;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.nav-tabs-inner::-webkit-scrollbar{display:none}
+
+.nav-tab{
+  flex-shrink:0;
+  padding:16px 20px;
+  cursor:pointer;
+  color:var(--text-2);
+  font-size:.96rem;
+  font-weight:800;
+  border-bottom:3px solid transparent;
+  transition:.2s;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.nav-tab:hover{color:var(--primary-3);background:#f8fbff}
+.nav-tab.active{
+  color:var(--primary);
+  border-bottom-color:var(--primary);
+  background:linear-gradient(180deg,#ffffff 0%,#f4f8ff 100%);
+}
+
+.main{
+  max-width:1100px;
+  margin:0 auto;
+  padding:18px;
+  padding-bottom:110px;
+}
+
+.section{display:none}
+.section.active{display:block}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(165px,1fr));
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.summary-card{
+  background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
+  border:1.5px solid var(--border);
+  border-radius:20px;
+  padding:18px 14px;
+  text-align:center;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  transition:.18s;
+}
+.summary-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
+}
+.summary-card .num{
+  font-size:2.1rem;
+  font-weight:800;
+  line-height:1;
+  margin-bottom:7px;
+}
+.summary-card .label{
+  font-size:.84rem;
+  color:var(--text-2);
+  font-weight:700;
+  line-height:1.25;
+}
+.sc-total .num{color:var(--primary)}
+.sc-open .num{color:var(--text)}
+.sc-inprog .num{color:var(--orange)}
+.sc-done .num{color:var(--green)}
+.sc-urgent .num{color:var(--red)}
+.sc-late .num{color:var(--red)}
+.sc-ontime .num{color:var(--green)}
+.sc-yoni .num{color:var(--purple)}
+.sc-ilana .num{color:var(--pink)}
+
+.box{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  margin-bottom:18px;
+}
+
+.box-header{
+  background:linear-gradient(135deg,#163b72 0%,#102d57 100%);
+  color:#fff;
+  padding:15px 18px;
+  font-weight:800;
+  font-size:1rem;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.box-body{padding:12px}
+
+.alert-item{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:10px;
+  font-size:.92rem;
+  line-height:1.5;
+}
+.alert-item:last-child{margin-bottom:0}
+.alert-urgent{background:var(--red-soft);border:1px solid #fecaca}
+.alert-warning{background:var(--orange-soft);border:1px solid #fed7aa}
+.alert-today{background:#eff6ff;border:1px solid #bfdbfe}
+.alert-pending{background:#f8fbff;border:1px solid var(--border)}
+.alert-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px}
+.alert-text strong{display:block;font-weight:800}
+.no-alerts{
+  text-align:center;
+  color:var(--text-3);
+  padding:22px;
+  font-size:.92rem;
+}
+
+.filters-box{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:20px;
+  padding:16px;
+  box-shadow:var(--shadow);
+  margin-bottom:16px;
+}
+
+.filters-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+
+.search-wrap{
+  flex:1;
+  min-width:220px;
+  position:relative;
+}
+
+.search-wrap input{
+  width:100%;
+  padding:14px 42px 14px 14px;
+  border:1.5px solid var(--border-2);
+  border-radius:14px;
+  font-family:'Heebo',sans-serif;
+  font-size:.95rem;
+  color:var(--text);
+  background:var(--surface-2);
+  direction:rtl;
+}
+.search-wrap input:focus{
+  outline:none;
+  border-color:var(--primary-3);
+  box-shadow:0 0 0 4px rgba(31,87,168,.10);
+}
+.search-icon{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--text-3);
+  font-size:1rem;
+  pointer-events:none;
+}
+
+.filter-select,
+.form-control,
+.cats-add-row input{
+  padding:13px 14px;
+  border:1.5px solid var(--border-2);
+  border-radius:14px;
+  font-family:'Heebo',sans-serif;
+  font-size:.92rem;
+  color:var(--text);
+  background:var(--surface-2);
+  direction:rtl;
+}
+.filter-select:focus,
+.form-control:focus,
+.cats-add-row input:focus{
+  outline:none;
+  border-color:var(--primary-3);
+  box-shadow:0 0 0 4px rgba(31,87,168,.10);
+}
+
+.filter-btn,
+.filter-clear{
+  padding:11px 16px;
+  border-radius:12px;
+  font-family:'Heebo',sans-serif;
+  font-size:.84rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
+  white-space:nowrap;
+}
+.filter-btn{
+  border:1.5px solid var(--border-2);
+  background:#f8fbff;
+  color:var(--text-2);
+}
+.filter-btn:hover{border-color:var(--primary-3);color:var(--primary-3)}
+.filter-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.filter-btn.red.active{background:var(--red);border-color:var(--red)}
+.filter-clear{
+  background:transparent;
+  border:1.5px solid var(--border-2);
+  color:var(--text-3);
+}
+.filter-clear:hover{border-color:var(--red);color:var(--red)}
+
+.tasks-count{
+  font-size:.9rem;
+  color:var(--text-3);
+  margin-bottom:12px;
+  font-weight:700;
+}
+
+.tasks-grid{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.task-card{
+  background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
+  border:1.5px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  transition:.2s;
+}
+.task-card:hover{box-shadow:var(--shadow-md)}
+.task-card.late{border-right:5px solid var(--red)}
+.task-card.warning{border-right:5px solid var(--orange)}
+.task-card.done-ontime{border-right:5px solid var(--green)}
+.task-card.yoni-card{border-right:5px solid var(--purple)}
+.task-card.ilana-card{border-right:5px solid var(--pink)}
+
+.task-header{
+  padding:16px 16px 12px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.task-title-area{flex:1;min-width:0}
+.task-title{
+  font-size:1.08rem;
+  font-weight:800;
+  color:var(--text);
+  margin-bottom:6px;
+  line-height:1.35;
+}
+.task-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:6px;
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:.76rem;
+  font-weight:800;
+  line-height:1.4;
+}
+.tag-yoni{background:var(--purple-soft);color:var(--purple)}
+.tag-ilana{background:var(--pink-soft);color:var(--pink)}
+.tag-urgent-max{background:#fef2f2;color:#b91c1c}
+.tag-urgent{background:#fff7ed;color:#c2410c}
+.tag-normal{background:#eff6ff;color:#1d4ed8}
+.tag-low{background:#eefbf3;color:#15803d}
+.tag-status{background:#f8fbff;color:var(--text-2);border:1px solid var(--border)}
+.tag-status.open{background:#eff6ff;color:#1d4ed8}
+.tag-status.inprog{background:#fff7ed;color:#c2410c}
+.tag-status.done{background:var(--green-soft);color:#15803d}
+.tag-status.cancelled{background:#fef2f2;color:#be123c}
+.tag-status.waiting{background:#faf5ff;color:#7e22ce}
+.tag-late{background:#fef2f2;color:#b91c1c}
+.tag-ontime{background:var(--green-soft);color:#15803d}
+.tag-inprog-t{background:#fff7ed;color:#c2410c}
+.tag-cat{background:#f8fbff;color:var(--text-2);border:1px solid var(--border)}
+
+.task-actions{
+  display:flex;
+  gap:8px;
+  flex-shrink:0;
+}
+.btn-icon{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  transition:.2s;
+}
+.btn-edit{background:#eff6ff;color:var(--primary-3)}
+.btn-edit:hover{background:var(--primary-3);color:#fff}
+.btn-delete{background:#fef2f2;color:var(--red)}
+.btn-delete:hover{background:var(--red);color:#fff}
+
+.task-body{padding:0 16px 16px}
+.task-desc{
+  font-size:.92rem;
+  color:var(--text-2);
+  margin-bottom:10px;
+  line-height:1.6;
+  background:#f8fbff;
+  border:1px solid #edf4fb;
+  border-radius:12px;
+  padding:10px 12px;
+}
+.task-times{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.time-item{
+  display:flex;
+  flex-direction:column;
+  font-size:.8rem;
+  color:var(--text-3);
+  gap:2px;
+}
+.time-item strong{
+  color:var(--text-2);
+  font-size:.88rem;
+  font-weight:800;
+}
+.task-notes{
+  margin-top:10px;
+  font-size:.88rem;
+  color:var(--text-2);
+  font-style:italic;
+  border-right:3px solid var(--border-2);
+  padding-right:10px;
+}
+
+.attachments-box{
+  margin-top:12px;
+  background:#f8fbff;
+  border:1px dashed var(--border-2);
+  border-radius:12px;
+  padding:12px;
+}
+.attachments-title{
+  font-size:.84rem;
+  font-weight:800;
+  color:var(--primary);
+  margin-bottom:8px;
+}
+.attachments-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.attachment-chip{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:.8rem;
+  max-width:100%;
+}
+.attachment-chip a{
+  color:var(--primary);
+  text-decoration:none;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:180px;
+}
+
+.no-tasks{
+  text-align:center;
+  padding:60px 20px;
+  color:var(--text-3);
+}
+.no-tasks .icon{font-size:3rem;margin-bottom:10px}
+.no-tasks p{font-size:1rem}
+
+.cats-box{
+  background:var(--surface);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  border:1.5px solid var(--border);
+  overflow:hidden;
+}
+.cats-header{
+  background:linear-gradient(135deg,#163b72 0%,#102d57 100%);
+  color:#fff;
+  padding:16px 18px;
+  font-weight:800;
+  font-size:1rem;
+}
+.cats-body{padding:18px}
+.cats-add-row{
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+}
+.btn-add-cat{
+  padding:13px 18px;
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-3) 100%);
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  font-family:'Heebo',sans-serif;
+  font-size:.9rem;
+  font-weight:800;
+  cursor:pointer;
+}
+.cats-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.cat-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#f8fbff;
+  border:1.5px solid var(--border);
+  border-radius:999px;
+  padding:7px 12px 7px 7px;
+  font-size:.9rem;
+  font-weight:700;
+}
+.cat-name{cursor:pointer}
+.btn-del-cat{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  border:none;
+  background:#fef2f2;
+  color:var(--red);
+  cursor:pointer;
+  font-size:.8rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(9,18,35,.55);
+  z-index:200;
+  overflow-y:auto;
+  padding:16px;
+  backdrop-filter:blur(4px);
+}
+.modal-overlay.open{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+.modal{
+  background:var(--surface);
+  border-radius:24px;
+  width:100%;
+  max-width:760px;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+  margin:auto;
+}
+.modal-header{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-2) 100%);
+  color:#fff;
+  padding:20px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.modal-header h2{font-size:1.08rem;font-weight:800}
+.modal-close{
+  background:rgba(255,255,255,.14);
+  border:none;
+  color:#fff;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:1.1rem;
+}
+.modal-body{padding:20px}
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.form-grid .full{grid-column:1 / -1}
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.form-group label{
+  font-size:.84rem;
+  font-weight:800;
+  color:var(--text-2);
+}
+textarea.form-control{
+  resize:vertical;
+  min-height:90px;
+}
+.upload-note{
+  font-size:.78rem;
+  color:var(--text-3);
+  margin-top:4px;
+}
+.file-list-edit{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:10px;
+}
+.file-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:#f8fbff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 12px;
+  font-size:.84rem;
+}
+.file-row-name{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+.file-row-name span:last-child{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.file-remove{
+  background:#fef2f2;
+  color:var(--red);
+  border:none;
+  border-radius:10px;
+  padding:6px 12px;
+  cursor:pointer;
+  font-family:'Heebo',sans-serif;
+  font-size:.8rem;
+  font-weight:800;
+}
+.modal-footer{
+  padding:18px 20px;
+  background:#f8fbff;
+  border-top:1px solid var(--border);
+  display:flex;
+  gap:10px;
+  justify-content:flex-start;
+}
+.btn-save{
+  padding:13px 26px;
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-3) 100%);
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  font-family:'Heebo',sans-serif;
+  font-size:.94rem;
+  font-weight:800;
+  cursor:pointer;
+}
+.btn-cancel{
+  padding:13px 22px;
+  background:transparent;
+  color:var(--text-2);
+  border:1.5px solid var(--border-2);
+  border-radius:14px;
+  font-family:'Heebo',sans-serif;
+  font-size:.92rem;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.fab-add{
+  position:fixed;
+  left:18px;
+  bottom:18px;
+  width:68px;
+  height:68px;
+  border:none;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-3) 100%);
+  color:#fff;
+  font-size:2rem;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 14px 28px rgba(18,60,122,.28);
+  z-index:150;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.fab-add:hover{transform:translateY(-2px)}
+
+.toast-container{
+  position:fixed;
+  bottom:96px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:999;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  width:min(92vw,380px);
+}
+.toast{
+  background:#1e293b;
+  color:#fff;
+  padding:13px 16px;
+  border-radius:14px;
+  font-size:.9rem;
+  font-weight:700;
+  box-shadow:var(--shadow-lg);
+  animation:slideUp .3s ease;
+}
+.toast.success{background:#15803d}
+.toast.error{background:#b91c1c}
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media (max-width:720px){
+  body{font-size:15px}
+  .header-inner{padding:15px 14px}
+  .brand-text h1{font-size:1.15rem}
+  .brand-text p{font-size:.82rem}
+  .nav-tabs{top:86px}
+  .main{padding:12px;padding-bottom:110px}
+  .summary-grid{grid-template-columns:repeat(2,1fr)}
+  .summary-card{padding:16px 12px}
+  .summary-card .num{font-size:1.8rem}
+  .form-grid{grid-template-columns:1fr}
+  .task-title{font-size:1rem}
+  .nav-tab{padding:14px 16px;font-size:.9rem}
+  .cats-add-row{flex-direction:column}
+}
+
+@media (max-width:420px){
+  .summary-grid{grid-template-columns:repeat(2,1fr)}
+  .fab-add{
+    width:62px;
+    height:62px;
+    font-size:1.8rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">📋</div>
+      <div class="brand-text">
+        <h1>יומן משימות משותף</h1>
+        <p>ניהול משימות, זמנים, מסמכים והתראות במקום אחד</p>
+      </div>
+    </div>
+
+    <div class="header-side">
+      <span class="header-pill">🤝 עבודה משותפת</span>
+      <span class="header-pill" id="headerDate"></span>
+    </div>
+  </div>
+</div>
+
+<div class="nav-tabs">
+  <div class="nav-tabs-inner">
+    <div class="nav-tab active" data-section="dashboard">🏠 סיכום</div>
+    <div class="nav-tab" data-section="tasks">📋 משימות</div>
+    <div class="nav-tab" data-section="alerts">🔔 התראות</div>
+    <div class="nav-tab" data-section="categories">🏷️ קטגוריות</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div id="sec-dashboard" class="section active">
+    <div class="summary-grid" id="summaryGrid"></div>
+
+    <div class="box">
+      <div class="box-header">🔔 התראות מהירות</div>
+      <div class="box-body" id="quickAlerts"></div>
+    </div>
+  </div>
+
+  <div id="sec-tasks" class="section">
+    <div class="filters-box">
+      <div class="filters-row">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="חיפוש לפי שם משימה..." oninput="renderTasks()">
+        </div>
+
+        <select class="filter-select" id="filterUser" onchange="renderTasks()">
+          <option value="">כל האחראים</option>
+          <option value="יוני">יוני</option>
+          <option value="אילנה">אילנה</option>
+        </select>
+
+        <select class="filter-select" id="filterCat" onchange="renderTasks()">
+          <option value="">כל הקטגוריות</option>
+        </select>
+
+        <select class="filter-select" id="filterUrgency" onchange="renderTasks()">
+          <option value="">כל הדחיפויות</option>
+          <option value="דחוף מאוד">דחוף מאוד</option>
+          <option value="דחוף">דחוף</option>
+          <option value="רגיל">רגיל</option>
+          <option value="לא דחוף">לא דחוף</option>
+        </select>
+
+        <select class="filter-select" id="filterStatus" onchange="renderTasks()">
+          <option value="">כל הסטטוסים</option>
+          <option value="פתוח">פתוח</option>
+          <option value="בטיפול">בטיפול</option>
+          <option value="ממתין">ממתין</option>
+          <option value="הושלם">הושלם</option>
+          <option value="בוטל">בוטל</option>
+        </select>
+      </div>
+
+      <div class="filters-row" style="margin-top:10px;">
+        <button class="filter-btn" id="fbToday" onclick="toggleFilter('today')">📅 היום</button>
+        <button class="filter-btn red" id="fbLate" onclick="toggleFilter('late')">🔴 באיחור</button>
+        <button class="filter-btn" id="fbUrgent" onclick="toggleFilter('urgent')">⚡ דחופות</button>
+        <button class="filter-btn" id="fbYoni" onclick="toggleFilter('yoni')">👨 יוני</button>
+        <button class="filter-btn" id="fbIlana" onclick="toggleFilter('ilana')">👩 אילנה</button>
+        <button class="filter-clear" onclick="clearFilters()">✕ נקה סינון</button>
+      </div>
+    </div>
+
+    <div class="tasks-count" id="tasksCount"></div>
+    <div class="tasks-grid" id="tasksList"></div>
+  </div>
+
+  <div id="sec-alerts" class="section">
+    <div class="box">
+      <div class="box-header">🔴 משימות דחופות</div>
+      <div class="box-body" id="alertsUrgent"></div>
+    </div>
+
+    <div class="box">
+      <div class="box-header">⏰ מתקרבות לדדליין</div>
+      <div class="box-body" id="alertsWarning"></div>
+    </div>
+
+    <div class="box">
+      <div class="box-header">🔴 עברו את זמן הסיום החייב</div>
+      <div class="box-body" id="alertsLate"></div>
+    </div>
+
+    <div class="box">
+      <div class="box-header">📅 משימות של היום</div>
+      <div class="box-body" id="alertsToday"></div>
+    </div>
+
+    <div class="box">
+      <div class="box-header">⏳ ממתינות לטיפול</div>
+      <div class="box-body" id="alertsPending"></div>
+    </div>
+  </div>
+
+  <div id="sec-categories" class="section">
+    <div class="cats-box">
+      <div class="cats-header">🏷️ ניהול קטגוריות</div>
+      <div class="cats-body">
+        <div class="cats-add-row">
+          <input type="text" id="newCatInput" placeholder="שם קטגוריה חדשה..." maxlength="30">
+          <button class="btn-add-cat" onclick="addCategory()">+ הוסף</button>
+        </div>
+        <div class="cats-list" id="catsList"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<button class="fab-add" onclick="openModal()" title="הוסף משימה">＋</button>
+
+<div class="modal-overlay" id="taskModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">הוספת משימה חדשה</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>כותרת משימה *</label>
+          <input type="text" id="fTitle" class="form-control" placeholder="כותרת המשימה" maxlength="100">
+        </div>
+
+        <div class="form-group full">
+          <label>פירוט / תיאור</label>
+          <textarea id="fDesc" class="form-control" placeholder="תיאור מפורט של המשימה..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>אחראי *</label>
+          <select id="fUser" class="form-control">
+            <option value="">בחר אחראי</option>
+            <option value="יוני">יוני</option>
+            <option value="אילנה">אילנה</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>קטגוריה</label>
+          <select id="fCat" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+          <label>רמת דחיפות</label>
+          <select id="fUrgency" class="form-control">
+            <option value="רגיל">רגיל</option>
+            <option value="דחוף מאוד">דחוף מאוד</option>
+            <option value="דחוף">דחוף</option>
+            <option value="לא דחוף">לא דחוף</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>סטטוס</label>
+          <select id="fStatus" class="form-control">
+            <option value="פתוח">פתוח</option>
+            <option value="בטיפול">בטיפול</option>
+            <option value="ממתין">ממתין</option>
+            <option value="הושלם">הושלם</option>
+            <option value="בוטל">בוטל</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>תאריך משימה</label>
+          <input type="date" id="fDate" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>זמן התחלה</label>
+          <input type="time" id="fTimeStart" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>זמן סיום מתוכנן</label>
+          <input type="time" id="fTimePlanned" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>זמן סיום חייב ⚠️</label>
+          <input type="time" id="fTimeDeadline" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>זמן סיום בפועל</label>
+          <input type="time" id="fTimeActual" class="form-control">
+        </div>
+
+        <div class="form-group full">
+          <label>הערות</label>
+          <input type="text" id="fNotes" class="form-control" placeholder="הערות נוספות...">
+        </div>
+
+        <div class="form-group full">
+          <label>קבצים ומסמכים</label>
+          <input type="file" id="fFiles" class="form-control" multiple accept=".pdf,.jpg,.jpeg,.png,.webp,.txt,.doc,.docx,.xls,.xlsx">
+          <div class="upload-note">אפשר לשמור קבצים קטנים בלבד בתוך הדפדפן</div>
+          <div class="file-list-edit" id="editFilesList"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-save" onclick="saveTask()">💾 שמור משימה</button>
+      <button class="btn-cancel" onclick="closeModal()">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+const STORAGE_KEY = 'yoni_ilana_tasks_v3';
+const CATS_KEY = 'yoni_ilana_cats_v3';
+const DEFAULT_CATS = ['עבודה','בית','ילדים','כספים','לקוחות','רכב','סידורים','בריאות','אישי','אחר'];
+
+let tasks = [];
+let categories = [];
+let activeFilters = {};
+let editingId = null;
+let tempFiles = [];
+
+function init() {
+  loadData();
+  setHeaderDate();
+  bindNavTabs();
+  bindFileInput();
+  renderAll();
+}
+
+function loadData() {
+  try { tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e){ tasks = []; }
+  try { categories = JSON.parse(localStorage.getItem(CATS_KEY)) || DEFAULT_CATS.slice(); } catch(e){ categories = DEFAULT_CATS.slice(); }
+  if(!categories.length) categories = DEFAULT_CATS.slice();
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  localStorage.setItem(CATS_KEY, JSON.stringify(categories));
+}
+
+function setHeaderDate() {
+  const now = new Date();
+  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  document.getElementById('headerDate').textContent = now.toLocaleDateString('he-IL', opts);
+}
+
+function bindNavTabs() {
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function(){
+      const section = this.dataset.section;
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      this.classList.add('active');
+      document.getElementById('sec-' + section).classList.add('active');
+      renderAll();
+    });
+  });
+}
+
+function showSection(sectionName){
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const tab = document.querySelector('.nav-tab[data-section="'+sectionName+'"]');
+  if(tab) tab.classList.add('active');
+  const sec = document.getElementById('sec-'+sectionName);
+  if(sec) sec.classList.add('active');
+  renderAll();
+}
+
+function getTimeStatus(task) {
+  const now = new Date();
+  const todayStr = now.toISOString().slice(0,10);
+  const taskDate = task.date || todayStr;
+  const deadlineStr = task.timeDeadline;
+  const actualStr = task.timeActual;
+  const status = task.status;
+
+  if (status === 'בוטל') return { label:'בוטל', cls:'tag-status cancelled' };
+
+  if (status === 'הושלם') {
+    if (deadlineStr && actualStr) {
+      return actualStr <= deadlineStr
+        ? { label:'עמד בזמן ✅', cls:'tag-ontime' }
+        : { label:'באיחור ❌', cls:'tag-late' };
+    }
+    return { label:'הושלם ✅', cls:'tag-ontime' };
+  }
+
+  if (deadlineStr) {
+    const deadlineDT = new Date(taskDate + 'T' + deadlineStr);
+    if (now > deadlineDT && status !== 'הושלם') {
+      return { label:'באיחור ❌', cls:'tag-late' };
+    }
+    const diff = (deadlineDT - now) / 1000 / 60 / 60;
+    if (diff <= 3 && diff > 0) return { label:'מתקרב ⚠️', cls:'tag-inprog-t' };
+  }
+
+  if (status === 'בטיפול') return { label:'בטיפול 🔄', cls:'tag-inprog-t' };
+  return { label:'פתוח', cls:'tag-status open' };
+}
+
+function isLate(task){ return getTimeStatus(task).cls === 'tag-late'; }
+function isWarning(task){ return getTimeStatus(task).cls === 'tag-inprog-t'; }
+function isDoneOnTime(task){ return getTimeStatus(task).cls === 'tag-ontime'; }
+
+function renderSummary() {
+  const total = tasks.length;
+  const open = tasks.filter(t => t.status === 'פתוח').length;
+  const inprog = tasks.filter(t => t.status === 'בטיפול').length;
+  const done = tasks.filter(t => t.status === 'הושלם').length;
+  const urgent = tasks.filter(t => t.urgency === 'דחוף מאוד' || t.urgency === 'דחוף').length;
+  const late = tasks.filter(t => isLate(t)).length;
+  const ontime = tasks.filter(t => isDoneOnTime(t)).length;
+  const yoni = tasks.filter(t => t.user === 'יוני').length;
+  const ilana = tasks.filter(t => t.user === 'אילנה').length;
+
+  const data = [
+    { num:total, label:'סה״כ משימות', cls:'sc-total', filter:null },
+    { num:open, label:'פתוחות', cls:'sc-open', filter:'open' },
+    { num:inprog, label:'בטיפול', cls:'sc-inprog', filter:'inprog' },
+    { num:done, label:'הושלמו', cls:'sc-done', filter:'done' },
+    { num:urgent, label:'דחופות', cls:'sc-urgent', filter:'urgent' },
+    { num:late, label:'באיחור', cls:'sc-late', filter:'late' },
+    { num:ontime, label:'עמדו בזמן', cls:'sc-ontime', filter:null },
+    { num:yoni, label:'משימות יוני', cls:'sc-yoni', filter:'yoni' },
+    { num:ilana, label:'משימות אילנה', cls:'sc-ilana', filter:'ilana' }
+  ];
+
+  document.getElementById('summaryGrid').innerHTML = data.map(d => `
+    <div class="summary-card ${d.cls}" ${d.filter ? onclick="jumpToFilter('${d.filter}')" : ''}>
+      <div class="num">${d.num}</div>
+      <div class="label">${d.label}</div>
+    </div>
+  `).join('');
+}
+
+function jumpToFilter(f) {
+  clearFilters();
+  if (f === 'open') document.getElementById('filterStatus').value = 'פתוח';
+  if (f === 'inprog') document.getElementById('filterStatus').value = 'בטיפול';
+  if (f === 'done') document.getElementById('filterStatus').value = 'הושלם';
+  if (f === 'urgent') { activeFilters.urgent = true; document.getElementById('fbUrgent').classList.add('active'); }
+  if (f === 'late') { activeFilters.late = true; document.getElementById('fbLate').classList.add('active'); }
+  if (f === 'yoni') { activeFilters.yoni = true; document.getElementById('fbYoni').classList.add('active'); }
+  if (f === 'ilana') { activeFilters.ilana = true; document.getElementById('fbIlana').classList.add('active'); }
+  showSection('tasks');
+  renderTasks();
+}
+
+function renderQuickAlerts() {
+  const now = new Date();
+  const todayStr = now.toISOString().slice(0,10);
+  const items = [];
+
+  tasks.filter(t => isLate(t)).slice(0,3).forEach(t => {
+    items.push(<div class="alert-item alert-urgent"><span class="alert-icon">🔴</span><div class="alert-text"><strong>${escapeHtml(t.title)}</strong><span>באיחור – אחראי: ${escapeHtml(t.user || 'לא הוגדר')}</span></div></div>);
+  });
+
+  tasks.filter(t => isWarning(t)).slice(0,3).forEach(t => {
+    items.push(<div class="alert-item alert-warning"><span class="alert-icon">⚠️</span><div class="alert-text"><strong>${escapeHtml(t.title)}</strong><span>מתקרב לדדליין – ${escapeHtml(t.timeDeadline || '')}</span></div></div>);
+  });
+
+  tasks.filter(t => t.date === todayStr && t.status !== 'הושלם' && t.status !== 'בוטל').slice(0,3).forEach(t => {
+    items.push(<div class="alert-item alert-today"><span class="alert-icon">📅</span><div class="alert-text"><strong>${escapeHtml(t.title)}</strong><span>משימה להיום – ${escapeHtml(t.user || '')}</span></div></div>);
+  });
+
+  const el = document.getElementById('quickAlerts');
+  el.innerHTML = items.length ? items.join('') : '<div class="no-alerts">✅ אין התראות כרגע</div>';
+}
+
+function renderAlerts() {
+  const now = new Date();
+  const todayStr = now.toISOString().slice(0,10);
+
+  const urgentTasks = tasks.filter(t => (t.urgency === 'דחוף מאוד' || t.urgency === 'דחוף') && t.status !== 'הושלם' && t.status !== 'בוטל');
+  const warningTasks = tasks.filter(t => isWarning(t));
+  const lateTasks = tasks.filter(t => isLate(t));
+  const todayTasks = tasks.filter(t => t.date === todayStr && t.status !== 'הושלם' && t.status !== 'בוטל');
+  const pendingTasks = tasks.filter(t => t.status === 'ממתין');
+
+  const render = (arr, elId, icon, colorCls) => {
+    const el = document.getElementById(elId);
+    if (!arr.length) {
+      el.innerHTML = '<div class="no-alerts">אין משימות בקטגוריה זו</div>';
+      return;
+    }
+    el.innerHTML = arr.map(t => `
+      <div class="alert-item ${colorCls}">
+        <span class="alert-icon">${icon}</span>
+        <div class="alert-text">
+          <strong>${escapeHtml(t.title)}</strong>
+          <span>${escapeHtml(t.user || '')} | ${escapeHtml(t.category || '')} | ${escapeHtml(t.urgency || '')} ${t.timeDeadline ? '| סיום חייב: ' + escapeHtml(t.timeDeadline) : ''}</span>
+        </div>
+      </div>
+    `).join('');
+  };
+
+  render(urgentTasks, 'alertsUrgent', '⚡', 'alert-urgent');
+  render(warningTasks, 'alertsWarning', '⏰', 'alert-warning');
+  render(lateTasks, 'alertsLate', '🔴', 'alert-urgent');
+  render(todayTasks, 'alertsToday', '📅', 'alert-today');
+  render(pendingTasks, 'alertsPending', '⏳', 'alert-pending');
+}
+
+function renderCategories() {
+  const el = document.getElementById('catsList');
+  el.innerHTML = categories.map((c, i) => `
+    <div class="cat-item">
+      <button class="btn-del-cat" onclick="deleteCategory(${i})">✕</button>
+      <span class="cat-name" onclick="renameCat(${i},'${c.replace(/'/g,"\\'")}')">🏷️ ${escapeHtml(c)}</span>
+    </div>
+  `).join('');
+
+  const opts = '<option value="">ללא קטגוריה</option>' + categories.map(c => <option value="${escapeHtml(c)}">${escapeHtml(c)}</option>).join('');
+  document.getElementById('fCat').innerHTML = opts;
+  document.getElementById('filterCat').innerHTML = '<option value="">כל הקטגוריות</option>' + categories.map(c => <option value="${escapeHtml(c)}">${escapeHtml(c)}</option>).join('');
+}
+
+function addCategory() {
+  const input = document.getElementById('newCatInput');
+  const name = input.value.trim();
+  if (!name) { toast('הזן שם קטגוריה', 'error'); return; }
+  if (categories.includes(name)) { toast('קטגוריה כבר קיימת', 'error'); return; }
+  categories.push(name);
+  saveData();
+  input.value = '';
+  renderCategories();
+  toast('קטגוריה נוספה ✅', 'success');
+}
+
+function deleteCategory(i) {
+  if (!confirm(למחוק את הקטגוריה "${categories[i]}"?)) return;
+  categories.splice(i, 1);
+  saveData();
+  renderCategories();
+  toast('קטגוריה נמחקה', 'success');
+}
+
+function renameCat(i, old) {
+  const n = prompt('שם חדש לקטגוריה:', old);
+  if (!n || n === old) return;
+  categories[i] = n.trim();
+  saveData();
+  renderCategories();
+  toast('קטגוריה עודכנה ✅', 'success');
+}
+
+function openModal(id = null) {
+  editingId = id;
+  tempFiles = [];
+  document.getElementById('modalTitle').textContent = id ? 'עריכת משימה' : 'הוספת משימה חדשה';
+  clearForm();
+
+  if (id) {
+    const t = tasks.find(x => x.id === id);
+    if (!t) return;
+
+    document.getElementById('fTitle').value = t.title || '';
+    document.getElementById('fDesc').value = t.desc || '';
+    document.getElementById('fUser').value = t.user || '';
+    document.getElementById('fCat').value = t.category || '';
+    document.getElementById('fUrgency').value = t.urgency || 'רגיל';
+    document.getElementById('fStatus').value = t.status || 'פתוח';
+    document.getElementById('fDate').value = t.date || '';
+    document.getElementById('fTimeStart').value = t.timeStart || '';
+    document.getElementById('fTimePlanned').value = t.timePlanned || '';
+    document.getElementById('fTimeDeadline').value = t.timeDeadline || '';
+    document.getElementById('fTimeActual').value = t.timeActual || '';
+    document.getElementById('fNotes').value = t.notes || '';
+    tempFiles = Array.isArray(t.attachments) ? JSON.parse(JSON.stringify(t.attachments)) : [];
+  } else {
+    const now = new Date();
+    document.getElementById('fDate').value = now.toISOString().slice(0,10);
+  }
+
+  renderEditFiles();
+  document.getElementById('taskModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('taskModal').classList.remove('open');
+  editingId = null;
+  tempFiles = [];
+  document.getElementById('fFiles').value = '';
+}
+
+function clearForm() {
+  ['fTitle','fDesc','fUser','fCat','fUrgency','fStatus','fDate','fTimeStart','fTimePlanned','fTimeDeadline','fTimeActual','fNotes'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el.tagName === 'SELECT') el.selectedIndex = 0;
+    else el.value = '';
+  });
+  document.getElementById('editFilesList').innerHTML = '';
+  document.getElementById('fFiles').value = '';
+}
+
+function bindFileInput() {
+  const input = document.getElementById('fFiles');
+  input.addEventListener('change', async function() {
+    const files = Array.from(this.files || []);
+    if (!files.length) return;
+
+    for (const file of files) {
+      if (file.size > 700 * 1024) {
+        toast(הקובץ ${file.name} גדול מדי לשמירה מקומית, 'error');
+        continue;
+      }
+
+      try {
+        const dataUrl = await fileToDataUrl(file);
+        tempFiles.push({
+          id: 'file_' + Date.now() + '_' + Math.floor(Math.random() * 99999),
+          name: file.name,
+          size: file.size,
+          type: file.type || 'application/octet-stream',
+          dataUrl: dataUrl
+        });
+      } catch(e) {
+        toast(לא הצלחנו לטעון את הקובץ ${file.name}, 'error');
+      }
+    }
+
+    this.value = '';
+    renderEditFiles();
+  });
+}
+
+function renderEditFiles() {
+  const box = document.getElementById('editFilesList');
+  if (!tempFiles.length) {
+    box.innerHTML = '';
+    return;
+  }
+
+  box.innerHTML = tempFiles.map((file, index) => `
+    <div class="file-row">
+      <div class="file-row-name">
+        <span>📎</span>
+        <span>${escapeHtml(file.name)}</span>
+      </div>
+      <button type="button" class="file-remove" onclick="removeTempFile(${index})">מחק</button>
+    </div>
+  `).join('');
+}
+
+function removeTempFile(index) {
+  tempFiles.splice(index, 1);
+  renderEditFiles();
+}
+
+async function saveTask() {
+  const title = document.getElementById('fTitle').value.trim();
+  const user = document.getElementById('fUser').value;
+  if (!title) { toast('נא להזין כותרת משימה', 'error'); return; }
+  if (!user) { toast('נא לבחור אחראי', 'error'); return; }
+
+  const oldTask = editingId ? tasks.find(t => t.id === editingId) : null;
+
+  const taskData = {
+    id: editingId || Date.now().toString(),
+    title,
+    desc: document.getElementById('fDesc').value.trim(),
+    user,
+    category: document.getElementById('fCat').value,
+    urgency: document.getElementById('fUrgency').value || 'רגיל',
+    status: document.getElementById('fStatus').value || 'פתוח',
+    date: document.getElementById('fDate').value,
+    timeStart: document.getElementById('fTimeStart').value,
+    timePlanned: document.getElementById('fTimePlanned').value,
+    timeDeadline: document.getElementById('fTimeDeadline').value,
+    timeActual: document.getElementById('fTimeActual').value,
+    notes: document.getElementById('fNotes').value.trim(),
+    attachments: tempFiles,
+    createdAt: oldTask ? oldTask.createdAt : Date.now(),
+    updatedAt: Date.now()
+  };
+
+  try {
+    if (editingId) {
+      const idx = tasks.findIndex(t => t.id === editingId);
+      if (idx > -1) tasks[idx] = taskData;
+    } else {
+      tasks.unshift(taskData);
+    }
+
+    saveData();
+    closeModal();
+    renderAll();
+    toast(editingId ? 'משימה עודכנה ✅' : 'משימה נוספה ✅', 'success');
+  } catch (e) {
+    toast('השמירה נכשלה. כנראה הקבצים גדולים מדי לדפדפן', 'error');
+  }
+}
+
+function deleteTask(id) {
+  if (!confirm('למחוק משימה זו?')) return;
+  tasks = tasks.filter(t => t.id !== id);
+  saveData();
+  renderAll();
+  toast('משימה נמחקה', 'success');
+}
+
+function toggleFilter(key) {
+  activeFilters[key] = !activeFilters[key];
+  const map = { today:'fbToday', late:'fbLate', urgent:'fbUrgent', yoni:'fbYoni', ilana:'fbIlana' };
+  const btn = document.getElementById(map[key]);
+  if (btn) btn.classList.toggle('active', activeFilters[key]);
+  renderTasks();
+}
+
+function clearFilters() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('filterUser').value = '';
+  document.getElementById('filterCat').value = '';
+  document.getElementById('filterUrgency').value = '';
+  document.getElementById('filterStatus').value = '';
+  activeFilters = {};
+  ['fbToday','fbLate','fbUrgent','fbYoni','fbIlana'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+  renderTasks();
+}
+
+function getFilteredTasks() {
+  const search = document.getElementById('searchInput').value.trim().toLowerCase();
+  const user = document.getElementById('filterUser').value;
+  const cat = document.getElementById('filterCat').value;
+  const urgency = document.getElementById('filterUrgency').value;
+  const status = document.getElementById('filterStatus').value;
+  const todayStr = new Date().toISOString().slice(0,10);
+
+  return tasks.filter(t => {
+    if (search && !((t.title || '').toLowerCase().includes(search) || (t.desc || '').toLowerCase().includes(search) || (t.notes || '').toLowerCase().includes(search))) return false;
+    if (user && t.user !== user) return false;
+    if (cat && t.category !== cat) return false;
+    if (urgency && t.urgency !== urgency) return false;
+    if (status && t.status !== status) return false;
+    if (activeFilters.today && t.date !== todayStr) return false;
+    if (activeFilters.late && !isLate(t)) return false;
+    if (activeFilters.urgent && t.urgency !== 'דחוף מאוד' && t.urgency !== 'דחוף') return false;
+    if (activeFilters.yoni && t.user !== 'יוני') return false;
+    if (activeFilters.ilana && t.user !== 'אילנה') return false;
+    return true;
+  });
+}
+
+function urgencyTag(u) {
+  const map = {
+    'דחוף מאוד':'tag-urgent-max',
+    'דחוף':'tag-urgent',
+    'רגיל':'tag-normal',
+    'לא דחוף':'tag-low'
+  };
+  return <span class="tag ${map[u] || 'tag-normal'}">⚡ ${escapeHtml(u || 'רגיל')}</span>;
+}
+
+function statusTag(s) {
+  const map = {
+    'פתוח':'open',
+    'בטיפול':'inprog',
+    'הושלם':'done',
+    'בוטל':'cancelled',
+    'ממתין':'waiting'
+  };
+  return <span class="tag tag-status ${map[s] || ''}">${escapeHtml(s || 'פתוח')}</span>;
+}
+
+function fmt(t) { return t ? t.slice(0,5) : '—'; }
+function fmtDate(d) {
+  if (!d) return '—';
+  const [y,m,day] = d.split('-');
+  return ${day}/${m}/${y};
+}
+
+function renderTaskAttachments(task) {
+  if (!task.attachments || !task.attachments.length) return '';
+  return `
+    <div class="attachments-box">
+      <div class="attachments-title">📎 מסמכים וקבצים</div>
+      <div class="attachments-list">
+        ${task.attachments.map(file => `
+          <div class="attachment-chip">
+            <span>📄</span>
+            <a href="${file.dataUrl}" download="${escapeAttr(file.name)}" target="_blank">${escapeHtml(file.name)}</a>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderTasks() {
+  const filtered = getFilteredTasks();
+  document.getElementById('tasksCount').textContent = מציג ${filtered.length} מתוך ${tasks.length} משימות;
+
+  if (!filtered.length) {
+    document.getElementById('tasksList').innerHTML = <div class="no-tasks"><div class="icon">📋</div><p>אין משימות להצגה</p></div>;
+    return;
+  }
+
+  const userCls = t => t.user === 'יוני' ? 'yoni-card' : t.user === 'אילנה' ? 'ilana-card' : '';
+  const cardCls = t => {
+    if (isLate(t)) return 'late';
+    if (isWarning(t)) return 'warning';
+    if (isDoneOnTime(t)) return 'done-ontime';
+    return userCls(t);
+  };
+
+  document.getElementById('tasksList').innerHTML = filtered.map(t => {
+    const ts = getTimeStatus(t);
+    const userTag = t.user === 'יוני'
+      ? <span class="tag tag-yoni">יוני</span>
+      : t.user === 'אילנה'
+      ? <span class="tag tag-ilana">אילנה</span>
+      : '';
+
+    return `
+      <div class="task-card ${cardCls(t)}">
+        <div class="task-header">
+          <div class="task-title-area">
+            <div class="task-title">${escapeHtml(t.title)}</div>
+            <div class="task-meta">
+              ${userTag}
+              ${urgencyTag(t.urgency)}
+              ${statusTag(t.status)}
+              <span class="tag ${ts.cls}">${escapeHtml(ts.label)}</span>
+              ${t.category ? <span class="tag tag-cat">🏷️ ${escapeHtml(t.category)}</span> : ''}
+            </div>
+            <div style="font-size:.8rem;color:var(--text-3);">📅 ${fmtDate(t.date)}</div>
+          </div>
+
+          <div class="task-actions">
+            <button class="btn-icon btn-edit" onclick="openModal('${t.id}')" title="עריכה">✏️</button>
+            <button class="btn-icon btn-delete" onclick="deleteTask('${t.id}')" title="מחיקה">🗑️</button>
+          </div>
+        </div>
+
+        <div class="task-body">
+          ${t.desc ? <div class="task-desc">${escapeHtml(t.desc)}</div> : ''}
+
+          <div class="task-times">
+            <div class="time-item"><span>התחלה</span><strong>${fmt(t.timeStart)}</strong></div>
+            <div class="time-item"><span>סיום מתוכנן</span><strong>${fmt(t.timePlanned)}</strong></div>
+            <div class="time-item"><span>סיום חייב ⚠️</span><strong style="color:var(--red)">${fmt(t.timeDeadline)}</strong></div>
+            <div class="time-item"><span>סיום בפועל</span><strong style="color:var(--green)">${fmt(t.timeActual)}</strong></div>
+          </div>
+
+          ${t.notes ? <div class="task-notes">💬 ${escapeHtml(t.notes)}</div> : ''}
+
+          ${renderTaskAttachments(t)}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toast(msg, type = '') {
+  const el = document.createElement('div');
+  el.className = toast ${type};
+  el.textContent = msg;
+  document.getElementById('toastContainer').appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+function renderAll() {
+  renderSummary();
+  renderQuickAlerts();
+  renderAlerts();
+  renderCategories();
+  renderTasks();
+}
+
+document.getElementById('taskModal').addEventListener('click', function(e){
+  if (e.target === this) closeModal();
+});
+
+document.getElementById('newCatInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') addCategory();
+});
+
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function bindFileInput() {
+  const input = document.getElementById('fFiles');
+  input.addEventListener('change', async function() {
+    const files = Array.from(this.files || []);
+    if (!files.length) return;
+
+    for (const file of files) {
+      if (file.size > 700 * 1024) {
+        toast(הקובץ ${file.name} גדול מדי לשמירה מקומית, 'error');
+        continue;
+      }
+
+      try {
+        const dataUrl = await fileToDataUrl(file);
+        tempFiles.push({
+          id: 'file_' + Date.now() + '_' + Math.floor(Math.random() * 99999),
+          name: file.name,
+          size: file.size,
+          type: file.type || 'application/octet-stream',
+          dataUrl: dataUrl
+        });
+      } catch(e) {
+        toast(לא הצלחנו לטעון את הקובץ ${file.name}, 'error');
+      }
+    }
+
+    this.value = '';
+    renderEditFiles();
+  });
+}
+
+function renderEditFiles() {
+  const box = document.getElementById('editFilesList');
+  if (!tempFiles.length) {
+    box.innerHTML = '';
+    return;
+  }
+
+  box.innerHTML = tempFiles.map((file, index) => `
+    <div class="file-row">
+      <div class="file-row-name">
+        <span>📎</span>
+        <span>${escapeHtml(file.name)}</span>
+      </div>
+      <button type="button" class="file-remove" onclick="removeTempFile(${index})">מחק</button>
+    </div>
+  `).join('');
+}
+
+function removeTempFile(index) {
+  tempFiles.splice(index, 1);
+  renderEditFiles();
+}
+
+function escapeHtml(str) {
+  return String(str ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+}
+
+function escapeAttr(str) {
+  return String(str ?? '').replace(/"/g,'&quot;');
+}
+
+init();
+</script>
+</body>
+</html>
