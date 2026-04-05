@@ -1619,60 +1619,6 @@ function fileToDataUrl(file) {
   });
 }
 
-function bindFileInput() {
-  const input = document.getElementById('fFiles');
-  input.addEventListener('change', async function() {
-    const files = Array.from(this.files || []);
-    if (!files.length) return;
-
-    for (const file of files) {
-      if (file.size > 700 * 1024) {
-        toast(`הקובץ ${file.name} גדול מדי לשמירה מקומית`, 'error');
-        continue;
-      }
-
-      try {
-        const dataUrl = await fileToDataUrl(file);
-        tempFiles.push({
-          id: 'file_' + Date.now() + '_' + Math.floor(Math.random() * 99999),
-          name: file.name,
-          size: file.size,
-          type: file.type || 'application/octet-stream',
-          dataUrl: dataUrl
-        });
-      } catch(e) {
-        toast(`לא הצלחנו לטעון את הקובץ ${file.name}`, 'error');
-      }
-    }
-
-    this.value = '';
-    renderEditFiles();
-  });
-}
-
-function renderEditFiles() {
-  const box = document.getElementById('editFilesList');
-  if (!tempFiles.length) {
-    box.innerHTML = '';
-    return;
-  }
-
-  box.innerHTML = tempFiles.map((file, index) => `
-    <div class="file-row">
-      <div class="file-row-name">
-        <span>📎</span>
-        <span>${escapeHtml(file.name)}</span>
-      </div>
-      <button type="button" class="file-remove" onclick="removeTempFile(${index})">מחק</button>
-    </div>
-  `).join('');
-}
-
-function removeTempFile(index) {
-  tempFiles.splice(index, 1);
-  renderEditFiles();
-}
-
 function escapeHtml(str) {
   return String(str ?? '')
     .replace(/&/g,'&amp;')
